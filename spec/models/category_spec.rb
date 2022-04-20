@@ -21,11 +21,11 @@ RSpec.describe Category, type: :model do
   # Test case where to test the name attrribute for each row is guaranted for unique
   it 'is invalid with a duplicate name' do
     category1 = Category.create(
-      name: 'Nasi Uduk',
+      name: 'Italian',
     )
 
     category2 = Category.new(
-      name: 'Nasi Uduk',
+      name: 'Italian',
     )
 
     category2.valid?
