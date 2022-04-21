@@ -1,17 +1,11 @@
 require 'rails_helper'
+require 'factory_bot'
 
 RSpec.describe Menu, type: :model do
   # Test case where it is valid of Name, Description, and Price
   it 'is valid with a name, description and price' do
-    # Some error when using factory bot
-    # expect(FactoryBot.build(:menu)).to be_valid
-    menu = Menu.new(
-      name: 'Nasi Uduk',
-      description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-      price: 15000.0
-    )
-
-    expect(menu).to be_valid
+    # Refactoring to factory bot is low priority right now
+    expect(FactoryBot.build(:menu)).to be_valid
   end
 
   # Test case where is is not valid when name attributes is not exist

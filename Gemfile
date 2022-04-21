@@ -62,15 +62,13 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
 
-  # Rspec
+group :development, :test do
   gem "rspec-rails"
-
-  # Factories
   gem "factory_bot_rails"
-
-  # Faker
   gem "faker"
+  gem 'rails-controller-testing'
 end
 
 group :test do

@@ -12,7 +12,7 @@ class MenusController < ApplicationController
 
     # Get /menus/new
     def new
-        @post = Post.new
+        @menu = Menu.new
     end
 
     # Get /menus/1/edit
@@ -54,6 +54,6 @@ class MenusController < ApplicationController
 
     # Helper function to return params
     def menu_params
-        params.require(:post).permit(:name, :title, :content)
+        params.require(:menu).permit(:name, :description, :price)
     end
 end
