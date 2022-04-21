@@ -81,19 +81,19 @@ RSpec.describe MenusController do
     # POST #Create
     describe 'POST #create' do
         context "with valid attributes" do
-          it "saves the new food in the database" do
+          it "saves the new menu in the database" do
             expect{
               post :create, params: { menu: attributes_for(:menu) }
             }.to change(Menu, :count).by(1)
           end
     
-          it "redirects to foods#show" do
+          it "redirects to menus#show" do
             post :create, params: { menu: attributes_for(:menu) }
             expect(response).to redirect_to(menu_path(assigns[:menu]))
           end
         end
         context "with invalid attributes" do
-            it "does not save the new food in the database" do
+            it "does not save the new menu in the database" do
               expect{
                 post :create, params: { menu: attributes_for(:invalid_menu) }
               }.not_to change(Menu, :count)
@@ -106,9 +106,59 @@ RSpec.describe MenusController do
         end
     end
 
-    # Right now is refactoring
-
     # Patch
+    describe 'PATCH #update' do
+      before :each do
+        @menu = create(:menu)
+      end
+
+      context "with valid attributes" do
+        it "locates the requested @menu" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu) }
+          expect(assigns(:menu)).to eq @menu
+        end
+  
+        it "changes @menu's attributes" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu, name: 'Nasi Goreng') }
+          @menu.reload
+          expect(@menu.name).to eq('Nasi Goreng')
+        end
+  
+        it "redirects to the menu" do
+          patch :update, params: { id: @menu, menu: attributes_for(:menu) }
+          expect(response).to redirect_to @menu
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 'does not save the updated food in the database' do
+          patch :update, params: { id: @menu, menu: attributes_for(:invalid_menu, name: 'Nasi Goreng', price: "Test") }
+          expect(@menu.name).not_to eq('Nasi Goreng')
+        end
+  
+        it 're-renders the edit template' do
+          patch :update, params: { id: @menu, menu: attributes_for(:invalid_menu) }
+          expect(assigns(:menu)).to eq @menu
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+    end
 
     # Delete
+    describe 'DELETE #destroy' do
+      before :each do
+        @menu = create(:menu)
+      end
+  
+      it "deletes the menu from the database" do
+        expect{
+          delete :destroy, params: { id: @menu }
+        }.to change(Menu, :count).by(-1)
+      end
+  
+      it "redirects to menus#index" do
+        delete :destroy, params: { id: @menu }
+        expect(response).to redirect_to menus_url
+      end
+    end
 end
