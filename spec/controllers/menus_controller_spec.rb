@@ -6,16 +6,9 @@ RSpec.describe MenusController do
     describe 'GET #index' do
         context 'normal request to controller' do
             it "populates an array of all menus" do 
-                nasi_uduk = Menu.create(
-                    name: 'Nasi Uduk',
-                    description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-                    price: 15000.0
-                )
-                kerak_telor = Menu.create(
-                    name: 'Kerak Telor',
-                    description: 'Kerak Telor yang enak',
-                    price: 15000.0
-                )
+                nasi_uduk = FactoryBot.create(:menu, name: "Nasi Uduk")
+                
+                kerak_telor = FactoryBot.create(:menu, name: "Kerak Telor")
                 get :index
                 expect(assigns(:menus)).to match_array([nasi_uduk, kerak_telor])
             end
@@ -29,22 +22,14 @@ RSpec.describe MenusController do
 
     # GET #Show
     describe 'GET #show' do
-        it "assigns the requested food to @food" do
-            nasi_uduk = Menu.create(
-                name: 'Nasi Uduk',
-                description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-                price: 15000.0
-            )
+        it "assigns the requested menu to @menu" do
+            nasi_uduk = FactoryBot.create(:menu, name: "Nasi Uduk")
             get :show, params: { id: nasi_uduk }
             expect(assigns(:menu)).to eq nasi_uduk
         end
     
         it "renders the :show template" do
-            nasi_uduk = Menu.create(
-                name: 'Nasi Uduk',
-                description: 'Betawi style steamed rice cooked in coconut milk. Delicious!',
-                price: 15000.0
-            )
+            nasi_uduk = FactoryBot.create(:menu, name: "Nasi Uduk")
             get :show, params: { id: nasi_uduk }
             expect(response).to render_template :show
         end
@@ -131,7 +116,7 @@ RSpec.describe MenusController do
       end
 
       context 'with invalid attributes' do
-        it 'does not save the updated food in the database' do
+        it 'does not save the updated menu in the database' do
           patch :update, params: { id: @menu, menu: attributes_for(:invalid_menu, name: 'Nasi Goreng', price: "Test") }
           expect(@menu.name).not_to eq('Nasi Goreng')
         end
