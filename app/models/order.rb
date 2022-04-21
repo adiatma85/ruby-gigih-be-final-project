@@ -5,6 +5,10 @@ class Order < ApplicationRecord
     # Validates
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "invalid email format"  }
 
+    # Relation
+    has_many :menu_orders
+    has_many :menus, through: :menu_orders
+
     # After initialize
     after_initialize do
         if self.new_record?

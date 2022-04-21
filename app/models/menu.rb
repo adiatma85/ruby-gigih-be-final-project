@@ -7,4 +7,6 @@ class Menu < ApplicationRecord
     # Relation
     has_many :menu_categories
     has_many :categories, through: :menu_categories
+    has_many :orders
+    has_many :orders, through: :menu_orders
 end
