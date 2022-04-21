@@ -9,7 +9,7 @@ class Order < ApplicationRecord
     after_initialize do
         if self.new_record?
             # values will be available for new record forms.
-            self.status = (is_still_open?) ? 0 : 2
+            self.status = (is_still_open?) ? :new : :canceled
             self.total = 0.0
         end
     end
@@ -17,10 +17,5 @@ class Order < ApplicationRecord
     # Functionality to check whether is still in open hour or not
     def is_still_open?
         return Time.current.hour < 17
-    end
-
-    # Functionality to check whether the total is exceed 0
-    def is_paying(total)
-        return total > 0
     end
 end
