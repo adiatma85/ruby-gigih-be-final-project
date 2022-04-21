@@ -1,12 +1,12 @@
 require 'factory_bot'
 FactoryBot.define do
-  factory :menu do
+  factory :food do
     name { Faker::Food.dish }
     description { Faker::Food.description }
     price { 10000.0 }
   end
 
-  factory :invalid_menu, parent: :menu do
+  factory :invalid_food, parent: :food do
     name { nil }
     description { nil }
     price { 10000.0 }

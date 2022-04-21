@@ -91,7 +91,4 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-
-# Custom
-require_relative 'support/factory_bot'
 end

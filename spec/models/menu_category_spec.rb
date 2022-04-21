@@ -12,6 +12,8 @@ RSpec.describe MenuCategory, type: :model do
       name: 'Indonesian',
     )
     menu_category = category.menu_categories.create(:menu => menu)
+    expect(menu).to be_valid
+    expect(category).to be_valid
     expect(menu_category).to be_valid
     expect(menu_category.category_id).to eq(category.id)
     expect(menu_category.menu_id).to eq(menu.id)
