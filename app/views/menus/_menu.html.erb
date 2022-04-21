@@ -1,2 +1,16 @@
-<div id="<%= dom_id menu %>">
-</div>
+<tr>
+    <td><%= menu.id%></td>
+    <td><%= menu.name%></td>
+    <td><%= menu.description%></td>
+    <td><%= menu.title%></td>
+    <td><%= menu.content%></td>
+    <td>
+    <%# Action to SHOW EDIT DELETE %>
+    <%# SHOW  %>
+    <%= link_to "Show", {controller: "menus", action: "show", id: post}, class: "btn btn-success" %>
+    <%# EDIT  %>
+    <%= link_to "Edit", {controller: "menus", action: "edit", id: post}, class: "btn btn-warning" %>
+    <%# DELETE %>
+    <%= button_to "Delete", menu, method: :delete, form_class: "btn btn-danger" %>
+  </td>
+</tr>
