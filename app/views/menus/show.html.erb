@@ -1,10 +1,53 @@
-<p style="color: green"><%= notice %></p>
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Table Menu</h3>
 
-<%= render @menu %>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-<div>
-  <%= link_to "Edit this menu", edit_menu_path(@menu) %> |
-  <%= link_to "Back to menus", menus_path %>
-
-  <%= button_to "Destroy this menu", @menu, method: :delete %>
-</div>
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Price</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= render menu %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <div class="mx-3 my-2">
+            <%= link_to "Back to Menus", {controller: "menus", action: "index"}, class: "btn btn-large btn-info" %>
+          </div>
+          <%# IN HERE 1 %>
+          <%# Mungkin saja nanti dibuat filter atau bagaimana?? %>
+          <%# Well, untuk saat ini mungkin kita bisa fokus dulu ke CRUD %>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->

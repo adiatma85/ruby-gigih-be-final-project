@@ -1,10 +1,21 @@
-<h1>Editing menu</h1>
-
-<%= render "form", menu: @menu %>
-
-<br>
-
-<div>
-  <%= link_to "Show this menu", @menu %> |
-  <%= link_to "Back to menus", menus_path %>
-</div>
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Form Pengisian</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <%= render "form", menu: @menu %>
+            </div>
+            <!-- /.card -->
+          </div>
+          <%= link_to "Back to posts", {controller: "posts", action: "index"}, class: "btn btn-large btn-info" %>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
