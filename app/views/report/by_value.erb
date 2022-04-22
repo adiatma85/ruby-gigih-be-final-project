@@ -1,0 +1,29 @@
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Form Pengisian Laporan berdasarkan total harga (lebih besar) </h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div class="card-body">
+                <div class="form-group">
+                <%= form_with url: "/reports/detail/by_value", method: :get do |form| %>
+                    <%= form.label :total_harga %>
+                    <%= form.number_field :value, in: 0.01..1000000, step: 0.01 ,class: "form-control" %>
+                    <%= form.submit "Search" %>
+                <% end %>
+
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <%= link_to "Back to menus", {controller: "menus", action: "index"}, class: "btn btn-large btn-info" %>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
