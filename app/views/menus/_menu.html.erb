@@ -7,9 +7,9 @@
     <td>
     <%# Action to SHOW EDIT DELETE %>
     <%# SHOW  %>
-    <%= link_to "Show", {controller: "menus", action: "show", id: post}, class: "btn btn-success" %>
+    <%= link_to "Show", {controller: "menus", action: "show", id: menu}, class: "btn btn-success" %>
     <%# EDIT  %>
-    <%= link_to "Edit", {controller: "menus", action: "edit", id: post}, class: "btn btn-warning" %>
+    <%= link_to "Edit", {controller: "menus", action: "edit", id: menu}, class: "btn btn-warning" %>
     <%# DELETE %>
     <%= button_to "Delete", menu, method: :delete, form_class: "btn btn-danger" %>
   </td>

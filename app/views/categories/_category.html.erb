@@ -1,2 +1,13 @@
-<div id="<%= dom_id category %>">
-</div>
+<tr>
+    <td><%= category.id%></td>
+    <td><%= category.name%></td>
+    <td>
+    <%# Action to SHOW EDIT DELETE %>
+    <%# SHOW  %>
+    <%= link_to "Show", {controller: "categories", action: "show", id: category}, class: "btn btn-success" %>
+    <%# EDIT  %>
+    <%= link_to "Edit", {controller: "categories", action: "edit", id: category}, class: "btn btn-warning" %>
+    <%# DELETE %>
+    <%= button_to "Delete", category, method: :delete, form_class: "btn btn-danger" %>
+  </td>
+</tr>
