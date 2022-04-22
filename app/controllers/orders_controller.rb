@@ -13,10 +13,12 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @menus = Menu.all
   end
 
   # GET /orders/1/edit
   def edit
+    @menus = Menu.all
   end
 
   # POST /orders or /orders.json
@@ -25,6 +27,23 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        total = 0
+        index = 0
+        params[:menus].each do |menu_and_price|
+
+          if menu_and_price == ""
+            break
+          end
+
+          menu_and_price = menu_and_price.split('_', 2)
+          menu_id = menu_and_price[0].to_f
+          price = menu_and_price[1].to_f
+          # menu_qty = params[:menu_qty][index].to_f
+          total += price
+          @order.menu_orders.create(menu_id: menu_id, quantity: 1)
+        end
+        @order.total = total
+        @order.save
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
