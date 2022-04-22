@@ -1,10 +1,21 @@
-<h1>Editing category</h1>
-
-<%= render "form", category: @category %>
-
-<br>
-
-<div>
-  <%= link_to "Show this category", @category %> |
-  <%= link_to "Back to categories", categories_path %>
-</div>
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Form Edit Category</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <%= render "form", category: @category %>
+            </div>
+            <!-- /.card -->
+          </div>
+          <%= link_to "Back to categories", {controller: "categories", action: "index"}, class: "btn btn-large btn-info" %>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
