@@ -1,2 +1,16 @@
-<div id="<%= dom_id order %>">
-</div>
+<tr>
+    <td><%= order.id%></td>
+    <td><%= order.name%></td>
+    <td><%= order.description%></td>
+    <td><%= order.title%></td>
+    <td><%= order.content%></td>
+    <td>
+    <%# Action to SHOW EDIT DELETE %>
+    <%# SHOW  %>
+    <%= link_to "Show", {controller: "orders", action: "show", id: order}, class: "btn btn-success" %>
+    <%# EDIT  %>
+    <%= link_to "Edit", {controller: "orders", action: "edit", id: order}, class: "btn btn-warning" %>
+    <%# DELETE %>
+    <%= button_to "Delete", order, method: :delete, form_class: "btn btn-danger" %>
+  </td>
+</tr>
