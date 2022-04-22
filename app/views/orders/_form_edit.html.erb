@@ -1,0 +1,28 @@
+<%= form_with(model: order) do |form| %>
+  <% if order.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="card-body">
+    <div class="form-group">
+      <%= form.label :status %>
+        <select class="custom-select rounded-0" name="order[status]" id="status" <% @order.status_paid? ? "disabled" : ""%>>
+          <option value="new" <% @order.status == "new" ? `selected="selected"` : "" %> >New</option>
+          <option value="paid" <% @order.status == "paid" ? `selected="selected"` : "" %> >Paid</option>
+          <option value="canceled" <% @order.status == "canceled" ? `selected="selected"` : "" %> >Canceled</option>
+        </select>
+    </div>
+  </div>
+
+  <%# Nanti di sini ada JS dan field lain yang bisa menambah order-orderan %>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
