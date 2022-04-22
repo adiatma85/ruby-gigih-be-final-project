@@ -47,6 +47,7 @@ I use Test-Driven Development. As you can see from my commit history, I use grou
 - Test --> ``test:...`` it means that I commit file for test/spec
 - Generate --> ``generate:...`` it means that I commit file from rails generate
 - Modify --> ``modify:...`` it means that I modifying some file, especialli in ``app/``
+- Moving --> ``moving:...`` this will be lot in replit, because I originally work this at my local device, so I will move it one by one
 - Bugfix/fix --> ``fix:...`` it means that after I found bug, I fix it with this commit
 
 ## My Database Design
