@@ -6,7 +6,7 @@ class Order < ApplicationRecord
     validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "invalid email format"  }
 
     # Relation
-    has_many :menu_orders
+    has_many :menu_orders, dependent: :delete_all
     has_many :menus, through: :menu_orders
 
     # After initialize

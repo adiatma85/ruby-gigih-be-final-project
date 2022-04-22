@@ -26,10 +26,103 @@
     <%= form.label :price %>
     <%= form.number_field :price, in: 0.01..1000000, step: 0.01 ,class: "form-control" %>
   </div>
-</div>
 
-<%# Nanti di sini ada JS dan field lain yang bisa menambah kategori-kategori %>
+  <div class="form-group">
+    <%= form.label :categories %>
+    <%# <%= form.select :categories, @categories, class: "custom-select rounded-0" %>
+    <select class="custom-select rounded-0" name="categories[]" id="categories">
+      <option selected>Open this select menu</option>
+      <% @categories.each do |category| %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+
+    <select class="custom-select rounded-0" name="categories[]" id="categories">
+      <option selected>Open this select menu</option>
+      <% @categories.each do |category| %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+
+    <select class="custom-select rounded-0" name="categories[]" id="categories">
+      <option selected>Open this select menu</option>
+      <% @categories.each do |category| %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+
+  <%# Button trigger to add new field of categories %>
+  <%# <div class="d-flex justify-content-center">
+    <button class="btn btn-info btn-block" id="addFieldButton">
+        Tambahkan Category Lainnya
+        <i class="fa fa-plus-circle ml-2"></i>
+    </button>
+  </div> %>
+
+</div>
   <div>
     <%= form.submit %>
   </div>
+
+
+<%# Custom Javascript %>
+  <%# Bruh, why even with "event.preventDefault()" it still throw to POST and submit the form? %>
+  <%# Maan, this solution works really well with laravel blade but I guess it is not with rails erb %>
+  <%# Reference for further code %>
+  <%# --> https://github.com/irvanrizkin/kbmti-2021/blob/main/resources/views/admin/events/create.blade.php %>
+
+
+<script>
+  let index = 0
+  $(document).ready(function() {
+   // Listener for Addfieldbutton
+    $("#addFieldButton").click(function(event) {
+        event.preventDefault();
+        $("#addFieldAppend").append(appendElement(index));
+                document.getElementById(`removeSign-${index}`).addEventListener('click', removeFunction);
+                index++;
+        });
+    });
+
+    // Field that will be appended
+    function appendElement(numerical){
+      $append = `<div class='form-group col-md-12' id='field-${numerical}'>` +
+      "<div class='row'>" +
+      "<div class='col-md-11'>" +
+      "<select class='custom-select' name='categories[]' required>" +
+      "<option selected>Open this select menu</option>" +
+      "<option value='Category1'>Category1</option>" +
+      "<option value='Category2'>Category2</option>" +
+      "<option value='Category3'>Category3</option>" +
+      "</select>" +
+      "</div>" +
+      "<div class='col-md-1'>" +
+      `<button class='btn btn-warning btn-block' id='removeSign-${numerical}'>` +
+          "<i class='fas fa-times-circle'></i>" +
+      "</button>" +
+      "</div>" +
+      "</div>" +
+      "</div>";
+      return $append;
+    }
+
+    // Remove function for each append element
+    function removeFunction(event){
+        event.preventDefault();
+        if (event.target !== this) {
+            return;
+        }
+        let removeSignId = event.target.id
+        let number = removeSignId.split("-")[1];
+        let element = document.getElementById(`field-${number}`);
+        element.remove();
+        index--;
+      } 
+  });
+</script>
+
+
 <% end %>
+

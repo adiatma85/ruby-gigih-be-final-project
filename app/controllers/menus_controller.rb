@@ -13,18 +13,22 @@ class MenusController < ApplicationController
     # Get /menus/new
     def new
         @menu = Menu.new
+        @categories = Category.all
     end
 
     # Get /menus/1/edit
     def edit
+        @categories = Category.all
     end
 
     # Post /menus
     def create
         @menu = Menu.new(menu_params)
-
         respond_to do |format|
             if @menu.save
+                params[:categories].each do |category_id|
+                    @menu.menu_categories.create(category_id: category_id)
+                end
                 format.html { redirect_to menu_url(@menu), notice: "Menu was successfully created." }
                 format.json { render :show, status: :created, location: @menu }
             else
@@ -49,6 +53,7 @@ class MenusController < ApplicationController
 
     # Delete /menus/1
     def destroy
+        # @menu.menu_categories.destroy
         @menu.destroy
 
         respond_to do |format|
@@ -64,6 +69,6 @@ class MenusController < ApplicationController
 
     # Helper function to return params
     def menu_params
-        params.require(:menu).permit(:name, :description, :price)
+        params.require(:menu).permit(:name, :description, :price, :categories)
     end
 end

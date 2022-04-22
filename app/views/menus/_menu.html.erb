@@ -4,6 +4,11 @@
     <td><%= menu.description %></td>
     <td>Rp. <%= menu.price %></td>
     <td>
+      <% menu.categories.each do |category| %>
+        <%= category.name %>,
+      <% end %>
+    </td>
+    <td>
     <%# Action to SHOW EDIT DELETE %>
     <%# SHOW  %>
     <%= link_to "Show", {controller: "menus", action: "show", id: menu}, class: "btn btn-success" %>
