@@ -13,13 +13,23 @@ class Order < ApplicationRecord
     after_initialize do
         if self.new_record?
             # values will be available for new record forms.
-            self.status = (is_still_open?) ? :new : :canceled
+            self.status = is_still_open ? :new : :canceled
             self.total = 0.0
         end
     end
 
+    # After find
+    # For simple uploading, it is always change the status to canceled if the order not paid
+    # until hour == 17
+    after_find do
+        if self.status_new? && !is_still_open
+            self.status = :canceled
+            self.save
+        end
+    end
+
     # Functionality to check whether is still in open hour or not
-    def is_still_open?
+    def is_still_open
         return Time.current.hour < 17
     end
 end
