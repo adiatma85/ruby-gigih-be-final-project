@@ -28,11 +28,11 @@
                       <th>Email</th>
                       <th>Status</th>
                       <th>Total</th>
-                      <th>Action</th>
+                      <th>Detail Pesanan</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <%= render @order %>
+                    <%= render "show_order", order: @order %>
                   </tbody>
                 </table>
               </div>

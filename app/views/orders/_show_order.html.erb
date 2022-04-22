@@ -1,0 +1,11 @@
+<tr>
+    <td><%= order.id %></td>
+    <td><%= order.email %></td>
+    <td><%= order.status %></td>
+    <td>Rp. <%= order.total %></td>
+    <td>
+        <% order.menu_orders.each do |item| %>
+            <%= (item.menu.name + " " + item.quantity.to_s + ", ") %>
+        <% end %>
+    </td>
+</tr>
