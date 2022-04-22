@@ -7,7 +7,6 @@ RSpec.describe MenusController do
         context 'normal request to controller' do
             it "populates an array of all menus" do 
                 nasi_uduk = FactoryBot.create(:menu, name: "Nasi Uduk")
-                
                 kerak_telor = FactoryBot.create(:menu, name: "Kerak Telor")
                 get :index
                 expect(assigns(:menus)).to match_array([nasi_uduk, kerak_telor])
@@ -67,13 +66,15 @@ RSpec.describe MenusController do
     describe 'POST #create' do
         context "with valid attributes" do
           it "saves the new menu in the database" do
-            expect{
-              post :create, params: { menu: attributes_for(:menu) }
-            }.to change(Menu, :count).by(1)
+            category1 = FactoryBot.create(:category, name: "Indonesian")
+            category2 = FactoryBot.create(:category, name: "Italiano")
+            expect{post :create, params: { menu: attributes_for(:menu), categories: [category1.id, category2.id] } }.to change(Menu, :count).by(1)
           end
     
           it "redirects to menus#show" do
-            post :create, params: { menu: attributes_for(:menu) }
+            category1 = FactoryBot.create(:category, name: "Indonesian")
+            category2 = FactoryBot.create(:category, name: "Italiano")
+            post :create, params: { menu: attributes_for(:menu), categories: [category1.id, category2.id] }
             expect(response).to redirect_to(menu_path(assigns[:menu]))
           end
         end

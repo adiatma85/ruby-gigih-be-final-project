@@ -63,39 +63,44 @@ RSpec.describe OrdersController do
 
     # POST #Create
     describe 'POST #create' do
+      before :each do
+        @nasi_uduk = FactoryBot.create(:menu, name: "Nasi Uduk")
+        @kerak_telor = FactoryBot.create(:menu, name: "Kerak Telor")
+        @random_menu_qty = [1, 2]
+      end
         context "with valid attributes" do
           it "saves the new order in the database" do
             expect{
-              post :create, params: { order: attributes_for(:order) }
+              post :create, params: { order: attributes_for(:order), menus: [@nasi_uduk, @kerak_telor], menu_qty: @random_menu_qty }
             }.to change(Order, :count).by(1)
           end
     
           it "redirects to orders#show" do
-            post :create, params: { order: attributes_for(:order) }
+            post :create, params: { order: attributes_for(:order), menus: [@nasi_uduk, @kerak_telor],  menu_qty: @random_menu_qty }
             expect(response).to redirect_to(order_path(assigns[:order]))
           end
         end
         context "with invalid attributes (email is not valid as regex)" do
             it "does not save the new order in the database" do
               expect{
-                post :create, params: { order: attributes_for(:invalid_order_with_invalid_email) }
+                post :create, params: { order: attributes_for(:invalid_order_with_invalid_email), menus: [@nasi_uduk, @kerak_telor],  menu_qty: @random_menu_qty }
               }.not_to change(Order, :count)
             end
       
             it "re-renders the :new template" do
-              post :create, params: { order: attributes_for(:invalid_order_with_invalid_email) }
+              post :create, params: { order: attributes_for(:invalid_order_with_invalid_email), menus: [@nasi_uduk, @kerak_telor],  menu_qty: @random_menu_qty }
               expect(response).to render_template :new
             end
         end
         context "with invalid attributes email is nil" do
             it "does not save the new order in the database" do
               expect{
-                post :create, params: { order: attributes_for(:invalid_order_with_nil) }
+                post :create, params: { order: attributes_for(:invalid_order_with_nil), menus: [@nasi_uduk, @kerak_telor],  menu_qty: @random_menu_qty }
               }.not_to change(Order, :count)
             end
       
             it "re-renders the :new template" do
-              post :create, params: { order: attributes_for(:invalid_order_with_nil) }
+              post :create, params: { order: attributes_for(:invalid_order_with_nil), menus: [@nasi_uduk, @kerak_telor],  menu_qty: @random_menu_qty }
               expect(response).to render_template :new
             end
         end
