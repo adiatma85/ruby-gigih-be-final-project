@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        total = 0
+        total = 0.0
         index = 0
         params[:menus].each do |menu_and_price|
 
@@ -36,14 +36,17 @@ class OrdersController < ApplicationController
           end
 
           menu_and_price = menu_and_price.split('_', 2)
-          menu_id = menu_and_price[0].to_f
-          price = menu_and_price[1].to_f
-          # menu_qty = params[:menu_qty][index].to_f
-          total += price
-          @order.menu_orders.create(menu_id: menu_id, quantity: 1)
+          menu_id = menu_and_price[0].to_i
+          price = menu_and_price[1].to_i
+          menu_qty = params[:menu_qty][index].to_i
+          sub_total = price * menu_qty 
+          detail_order = @order.menu_orders.create(menu_id: menu_id, quantity: menu_qty, sub_total: sub_total)
+          index += 1
+          total += detail_order.sub_total
         end
-        @order.total = total
+        @order.total = calculate_total(@order)
         @order.save
+
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -85,5 +88,14 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:email)
+    end
+
+    # Helper to calculate total
+    def calculate_total(order)
+      total = 0.0
+      order.menu_orders.each do |item|
+        total += item.sub_total
+      end
+      return total
     end
 end
